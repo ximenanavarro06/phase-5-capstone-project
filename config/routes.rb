@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :workout_with_movements, only: [:create]
+  resources :workout_with_movements, only: [:index, :show, :create]
   resources :diets, only: [:index, :show]
   resources :movement_how_tos, only: [:show]
   resources :workouts, only: [:index, :show]

@@ -1,13 +1,20 @@
 class WorkoutWithMovementsController < ApplicationController
 
-    def create
-        workout_with_movements = WorkoutWithMovements.create!(params_movement)
-        render json: workout_with_movements.movement, status: :created
+
+    def index
+        workout_with_movements = WorkoutWithMovement.all
+        render json: workout_with_movements
+    end
+
+    def show
+        workout_with_movements = set_wm
+        render json: workout_with_movements
     end
 
     private
 
-    def params_movement
-        params.permit(:name, :reps, :sets)
+    def set_wm
+        WorkoutWithMovement.find(params[:id])
     end
+
 end
