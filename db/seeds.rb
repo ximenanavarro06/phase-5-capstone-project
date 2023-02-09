@@ -17,6 +17,7 @@ Diet.destroy_all
 puts "🏋🏼 Seeding User..."
 user1 = User.create(
         username: "Admin",
+        password: "password",
         height: 64,
         weight: 139,
         weight_goal: 143,
