@@ -4,46 +4,91 @@ import Login from "./components/account/Login"
 import NavBar from "./NavBar"
 import Header from "./Header"
 import MyAccount from "./components/account/MyAccount"
+import WorkoutList from "./components/Workouts/WorkoutList";
+import DietList from "./components/Diets/DietList"
+import MovementHowToCard from "./components/WorkoutHowTos/MovementHowToCard";
 
 
 
 
 function App() {
-  const [currentUser, setCurrentUser] = useState(null);
-  const history = useHistory();
-
-  useEffect(() => {
-    // auto-login
-    fetch("/me").then((r) => {
-      if (r.ok) {
-        r.json().then((currentUser) => setCurrentUser(currentUser));
-      }
-    });
-  }, []);
-
-  if (!currentUser) return <Login onLogin={setCurrentUser} />;
+    const [currentUser, setCurrentUser] = useState(null);
+    const history = useHistory();
+    const [workouts, setWorkouts] = useState([]);
+    const [diets, setDiets] = useState([]);
 
 
 
-  return(
-    <>
-    <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser}/>
-    {!currentUser ? <Login onLogin={setCurrentUser} history={history} /> :
-    <Switch>
-        <Route path="/me">
-          <MyAccount currentUser={currentUser}/>
-        </Route>
+  //fetch current user
+    useEffect(() => {
+      // auto-login
+      fetch("/me").then((r) => {
+        if (r.ok) {
+          r.json().then((currentUser) => setCurrentUser(currentUser));
+        }
+      });
+    }, []);
 
-        <Route path="/">
-          {console.log(currentUser)}
-          <Login onLogin={setCurrentUser}  history={history}/>
-        </Route>
+  //delete current user
+    function handleDeleteCurrentUser(id) {
+      const yourUser = currentUser.filter((user) => user.id !== id);
+      setCurrentUser(yourUser);
+    }
+
+    //fetch workouts
+    useEffect(() => {
+      fetch("/workouts")
+      .then((r) => r.json())
+      .then(workouts => {
+          setWorkouts(workouts)
+      })
+    }, [])
+
+    //fetch diets
+    useEffect(() => {
+      fetch("/diets")
+      .then((r) => r.json())
+      .then(diets => {
+          setDiets(diets)
+      })
+    }, [])
 
 
-        </Switch>}
-    </>
 
-  )
+
+    return(
+      <>
+      <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser}/>
+      {!currentUser ? <Login onLogin={setCurrentUser} history={history} /> :
+      <Switch>
+          <Route path="/me">
+            <MyAccount currentUser={currentUser} onCurrentUserDelete={handleDeleteCurrentUser} history={history}/>
+          </Route>
+
+          <Route path="/workouts">
+            <WorkoutList currentUser={currentUser} workouts={workouts}/>
+          </Route>
+
+          <Route path="/movement_how_tos/:id">
+            <MovementHowToCard />
+          </Route>
+
+          <Route path="/diets">
+            <DietList currentUser={currentUser} diets={diets}/>
+          </Route>
+
+          <Route path="/">
+            {console.log(currentUser)}
+            <Login onLogin={setCurrentUser}  history={history}/>
+          </Route>
+
+
+
+
+          </Switch>}
+      </>
+
+    )
 }
 
 export default App

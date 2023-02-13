@@ -54,6 +54,14 @@ function NavBar({currentUser, setCurrentUser}) {
                 </p>
             )}
 
+            <NavLink to="/workouts" style={linkStyles} activeStyle={{background: "grey"}}>
+                Workouts
+            </NavLink>
+
+            <NavLink to="/diets" style={linkStyles} activeStyle={{background: "grey"}}>
+                Diets
+            </NavLink>
+
         <button onClick = {handleLogoutClick}>
             Log Out
         </button>

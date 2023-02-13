@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-function MyAccount({currentUser}) {
+
+function MyAccount({currentUser, history}) {
     console.log(currentUser)
     const [editUsername, setEditUsername] = useState(currentUser.username);
     console.log(editUsername)
@@ -15,6 +16,12 @@ function MyAccount({currentUser}) {
     const [editHealthGoal, setEditHealthGoal] = useState(currentUser.health_goal);
     //const [errors, setErrors] = useState([])
 
+    //redirect to login page
+    const redirect = () => {
+        history.push('/');
+    }
+
+    //gender dropdown menu
     const genders = [
         "Female",
         "Male"
@@ -24,6 +31,8 @@ function MyAccount({currentUser}) {
         return <option value={gender}> {gender} </option>
     })
 
+
+    //submit update user form
     function handleSubmit(e) {
         e.preventDefault();
         //setErrors([]);
@@ -52,10 +61,13 @@ function MyAccount({currentUser}) {
             .then( (editAccount)=> console.log(editAccount))
         }
 
+
+        //delete current user account
         function handleDeleteClick() {
             fetch(`/users/${currentUser.id}`, {
                 method: "DELETE",
             });
+            redirect()
         }
 
     return (
@@ -148,7 +160,7 @@ function MyAccount({currentUser}) {
             </button>
             </form>
 
-            <button onClick={handleDeleteClick}>
+            <button onClick={handleDeleteClick} redirect={redirect}>
                 <span role="img" aria-label="delete">
                     🗑
                 </span>

@@ -6,11 +6,12 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 puts "💥 Destroying data..."
-User.destroy_all
-Movement.destroy_all
+WorkoutWithMovement.destroy_all
 Workout.destroy_all
 MovementHowTo.destroy_all
 Diet.destroy_all
+User.destroy_all
+Movement.destroy_all
 
 
 
@@ -63,16 +64,24 @@ kbswing = Movement.create(
     reps: 15,
     sets: 5
 )
-
+array=[]
+array.push(squat.id)
 
 puts "🏋🏼 Adding movements to Workouts..."
 Workout.all.each do |workout|
-    rand(4).times do
+    array.shuffle
+    index =0
+    (4).times do
         movement = Movement.find(Movement.pluck(:id).sample)
 
         WorkoutWithMovement.create(workout_id: workout.id, movement_id: movement.id)
     end
 end
+
+# WorkoutWithMovement.create(workout_id: workout.id, movement_id: movementarray[0])
+# WorkoutWithMovement.create(workout_id: workout.id, movement_id: movementarray[1])
+
+
 
 
 
