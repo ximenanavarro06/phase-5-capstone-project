@@ -53,6 +53,24 @@ function App() {
       })
     }, [])
 
+    //add workout to profile
+    function handleAddWorkoutToProfile(addWorkoutToProfile) {
+      const workoutOnProfile = workouts.map((workout) => {
+        if (workout.id === addWorkoutToProfile.id) {
+          return addWorkoutToProfile;
+        } else {
+          return workout;
+        }
+      })
+        setWorkouts(workoutOnProfile);
+    }
+
+    //remove workout from profile
+    function handleRemoveWorkoutFromProfile(removeWorkoutFromProfile) {
+      const removeWorkout = workouts.filter((workout) => workout.id !== removeWorkoutFromProfile.id);
+        setWorkouts(removeWorkout)
+    }
+
 
 
 
@@ -62,11 +80,11 @@ function App() {
       {!currentUser ? <Login onLogin={setCurrentUser} history={history} /> :
       <Switch>
           <Route path="/me">
-            <MyAccount currentUser={currentUser} onCurrentUserDelete={handleDeleteCurrentUser} history={history}/>
+            <MyAccount currentUser={currentUser} onCurrentUserDelete={handleDeleteCurrentUser} history={history} onAddWorkoutToProfile={handleAddWorkoutToProfile} onRemoveWorkoutFromProfile={handleRemoveWorkoutFromProfile} workouts={workouts}/>
           </Route>
 
           <Route path="/workouts">
-            <WorkoutList currentUser={currentUser} workouts={workouts}/>
+            <WorkoutList currentUser={currentUser} workouts={workouts} onAddWorkoutToProfile={handleAddWorkoutToProfile} onRemoveWorkoutFromProfile={handleRemoveWorkoutFromProfile}/>
           </Route>
 
           <Route path="/movement_how_tos/:id">

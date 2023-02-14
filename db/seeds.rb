@@ -30,20 +30,20 @@ user1 = User.create(
 
 puts "🏋🏼 Seeding Workouts..."
 Workout.create!(
-    user_id: user1.id,
-    name: "Workout 1"
+    name: "Workout 1",
+    on_profile: false
 )
 Workout.create!(
-    user_id: user1.id,
-    name: "Workout 2"
+    name: "Workout 2",
+    on_profile: false
 )
 Workout.create!(
-    user_id: user1.id,
-    name: "Workout 3"
+    name: "Workout 3",
+    on_profile: false
 )
 Workout.create!(
-    user_id: user1.id,
-    name: "Workout 4"
+    name: "Workout 4",
+    on_profile: false
 )
 
 
@@ -110,7 +110,6 @@ MovementHowTo.create([
 puts "🏋🏼 Seeding Diet..."
 Diet.create([
     {
-        user_id: user1.id,
         diet_name: "Vegetarian",
         sunday_breakfast: "sdgfsdf",
         sunday_lunch: "sdfsdf",

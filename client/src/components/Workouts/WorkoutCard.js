@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom"
 
-function WorkoutCard({workout}) {
-    console.log(workout)
-    const {name} = workout
+function WorkoutCard({workout, onAddWorkoutToProfile, onRemoveWorkoutFromProfile}) {
+    // console.log(workout)
+    const {id, name, on_profile: onProfile} = workout
+    const [onToProfile, setOnToProfile] = useState(onProfile)
     const movementList = workout.movements.map((movement)=> (
         <div>
             <p>{movement.name}</p>
@@ -14,6 +15,24 @@ function WorkoutCard({workout}) {
         </div>
     ))
 
+    //handle add workout to profile
+    function handleAddWorkoutToProfileChange() {
+        setOnToProfile((onToProfile) => !onToProfile);
+        console.log(onToProfile)
+        fetch(`/workouts/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({on_profile: !onProfile})
+        })
+        .then((r) => r.json())
+        //.then(addedToProfile => console.log(addedToProfile))
+        .then((addedToProfile) => setOnToProfile ? onAddWorkoutToProfile(addedToProfile) : onRemoveWorkoutFromProfile(addedToProfile))
+        // console.log(r.json)
+
+    }
+
 
     return(
         <>
@@ -22,6 +41,9 @@ function WorkoutCard({workout}) {
             <ul>
                 {movementList}
             </ul>
+            {onToProfile ? (
+                <button onClick={handleAddWorkoutToProfileChange}>Remove From Profile</button>
+            ) : ( <button onClick={handleAddWorkoutToProfileChange}>Add Workout To Profile</button>)}
         </div>
         </>
     )

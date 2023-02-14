@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   resources :workout_with_movements, only: [:index, :show, :create]
   resources :diets, only: [:index, :show]
   resources :movement_how_tos, only: [:show]
-  resources :workouts, only: [:index, :show]
+  resources :workouts, only: [:index, :show, :update]
   resources :movements, only: [:index, :show]
   resources :users, only: [:show, :destroy]
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

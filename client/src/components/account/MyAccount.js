@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import WorkoutCard from "../Workouts/WorkoutCard"
 
 
-function MyAccount({currentUser, history}) {
+function MyAccount({currentUser, history, onAddWorkoutToProfile, onRemoveWorkoutFromProfile, workouts}) {
     console.log(currentUser)
     const [editUsername, setEditUsername] = useState(currentUser.username);
     console.log(editUsername)
@@ -15,6 +16,11 @@ function MyAccount({currentUser, history}) {
     const [editFitnessGoal, setEditFitnessGoal] = useState(currentUser.fitness_goal);
     const [editHealthGoal, setEditHealthGoal] = useState(currentUser.health_goal);
     //const [errors, setErrors] = useState([])
+    const onProfileWorkouts = workouts.filter((workout) => workout.on_profile);
+
+    const allWorkouts = onProfileWorkouts.map((workout) => (
+        <WorkoutCard key={workout.id} workout={workout} onRemoveWorkoutFromProfile={onRemoveWorkoutFromProfile} onAddWorkoutToProfile={onAddWorkoutToProfile} />
+    ))
 
     //redirect to login page
     const redirect = () => {
@@ -165,6 +171,7 @@ function MyAccount({currentUser, history}) {
                     🗑
                 </span>
             </button>
+          <div className="workoutsOnProfile">{allWorkouts}</div>
         </div>
     )
 }

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react"
 import WorkoutCard from "./WorkoutCard"
 
-function WorkoutList({workouts, movements}) {
+function WorkoutList({workouts, movements, onAddWorkoutToProfile, onRemoveWorkoutFromProfile}) {
 
     const workoutList = workouts.map((workout) => (
         <WorkoutCard
         key={workout.id}
         workout={workout}
         movements={movements}
+        onAddWorkoutToProfile={onAddWorkoutToProfile}
+        onRemoveWorkoutFromProfile={onRemoveWorkoutFromProfile}
         />
     ))
 

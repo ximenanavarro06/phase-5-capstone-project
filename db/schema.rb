@@ -12,7 +12,6 @@
 
 ActiveRecord::Schema[7.0].define(version: 2023_02_02_204645) do
   create_table "diets", force: :cascade do |t|
-    t.integer "user_id", null: false
     t.string "diet_name"
     t.string "sunday_breakfast"
     t.string "sunday_lunch"
@@ -44,7 +43,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_02_204645) do
     t.string "saturday_snacks"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_diets_on_user_id"
   end
 
   create_table "movement_how_tos", force: :cascade do |t|
@@ -86,16 +84,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_02_204645) do
   end
 
   create_table "workouts", force: :cascade do |t|
-    t.integer "user_id", null: false
     t.string "name"
+    t.boolean "on_profile"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_id"], name: "index_workouts_on_user_id"
   end
 
-  add_foreign_key "diets", "users"
   add_foreign_key "movement_how_tos", "movements"
   add_foreign_key "workout_with_movements", "movements"
   add_foreign_key "workout_with_movements", "workouts"
-  add_foreign_key "workouts", "users"
 end
