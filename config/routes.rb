@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :workout_with_movements, only: [:index, :show, :create]
-  resources :diets, only: [:index, :show]
+  resources :diets, only: [:index, :show, :update]
   resources :movement_how_tos, only: [:show]
   resources :workouts, only: [:index, :show, :update]
   resources :movements, only: [:index, :show]

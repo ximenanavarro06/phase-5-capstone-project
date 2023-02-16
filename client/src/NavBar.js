@@ -41,7 +41,6 @@ function NavBar({currentUser, setCurrentUser}) {
 
 
     return (
-        <header>
         <div className="navBar">
 
             {currentUser ? (
@@ -67,7 +66,6 @@ function NavBar({currentUser, setCurrentUser}) {
         </button>
 
         </div>
-        </header>
     );
     }
 

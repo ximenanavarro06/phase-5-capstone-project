@@ -1,7 +1,37 @@
 import React, {useState} from "react";
 import { Link } from "react-router-dom"
+import styled, {css} from 'styled-components'
 
 function WorkoutCard({workout, onAddWorkoutToProfile, onRemoveWorkoutFromProfile}) {
+    const Button = styled.button`
+    display: inline-block;
+    background: transparent;
+    border-radius: 3px;
+    border: 2px solid palevioletred;
+    color: palevioletred;
+    margin: 0 1em;
+    padding: 0.25em 1em;
+    text-decoration: none;
+    
+
+    ${props =>
+    props.primary &&
+    css`
+        background: palevioletred;
+        color: white;
+    `};
+`
+const Wrapper = styled.div`
+    &:hover ${Button} {
+        background-color: pink;
+    }
+`
+
+
+
+
+
+
     // console.log(workout)
     const {id, name, on_profile: onProfile} = workout
     const [onToProfile, setOnToProfile] = useState(onProfile)
@@ -10,7 +40,11 @@ function WorkoutCard({workout, onAddWorkoutToProfile, onRemoveWorkoutFromProfile
             <p>{movement.name}</p>
             <p>Sets: {movement.sets}</p>
             <p>Reps: {movement.reps}</p>
-            <Link to={`/movement_how_tos/${movement.id}`}>How To:</Link>
+            <Wrapper>
+            <Button as="a" href={`/movement_how_tos/${movement.id}`}>
+            How To
+            </Button>
+            </Wrapper>
             <p>-------</p>
         </div>
     ))
@@ -42,8 +76,8 @@ function WorkoutCard({workout, onAddWorkoutToProfile, onRemoveWorkoutFromProfile
                 {movementList}
             </ul>
             {onToProfile ? (
-                <button onClick={handleAddWorkoutToProfileChange}>Remove From Profile</button>
-            ) : ( <button onClick={handleAddWorkoutToProfileChange}>Add Workout To Profile</button>)}
+                <Wrapper><Button onClick={handleAddWorkoutToProfileChange}>Remove From Profile</Button></Wrapper>
+            ) : ( <Wrapper><Button primary onClick={handleAddWorkoutToProfileChange}>Add Workout To Profile</Button></Wrapper>)}
         </div>
         </>
     )

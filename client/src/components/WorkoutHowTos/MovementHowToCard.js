@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react"
 import { useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 
 
 function MovementHowToCard() {
@@ -25,6 +26,7 @@ function MovementHowToCard() {
     if (howTo) return (
         <>
         <h2>How To Video: </h2>
+        <Link to={`/workouts`}>Back To Workout List:</Link>
         <iframe
         width="560"
         height="315"

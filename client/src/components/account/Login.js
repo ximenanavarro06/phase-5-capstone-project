@@ -3,6 +3,7 @@ import styled from "styled-components";
 import SignUpForm from "./SignUpForm";
 import LoginForm from "./LoginForm";
 import {useHistory} from "react-router-dom"
+import {CardButton} from "../../styles/Card"
 
 
 function Login({onLogin, history}) {
@@ -14,16 +15,16 @@ function Login({onLogin, history}) {
 
     return (
         <Wrapper>
-            <Logo>Workout or Die</Logo>
+            <Logo className="Header">Workout or Die</Logo>
             {showLogin ? (
                 <>
                     <LoginForm onLogin={onLogin} redirect={redirect}/>
                     <Divider />
                     <p>
                         Don't have an account? &nbsp;
-                        <button color="secondary" onClick={() => setShowLogin(false)}>
+                        <CardButton color="secondary" onClick={() => setShowLogin(false)}>
                             Sign Up
-                        </button>
+                        </CardButton>
                     </p>
                 </>
             ) : (
@@ -32,9 +33,9 @@ function Login({onLogin, history}) {
                     <Divider />
                     <p>
                         Already have an account? &nbsp;
-                        <button color="secondary" onClick={() => setShowLogin(true)}>
+                        <CardButton color="secondary" onClick={() => setShowLogin(true)}>
                             Log In
-                        </button>
+                        </CardButton>
                     </p>
                 </>
             )}
@@ -45,8 +46,9 @@ function Login({onLogin, history}) {
 const Logo = styled.h1`
     font-family: "Permanent Marker";
     font-size: 3rem;
-    color: blueviolet;
+    color: palevioletred;
     margin: 8px 0 16px;
+    margin-left: 82px
 `;
 
 const Wrapper = styled.section`

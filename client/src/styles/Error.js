@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import React from "react"
+import styled, {css} from "styled-components";
 
 function Error({ children }) {
   return (

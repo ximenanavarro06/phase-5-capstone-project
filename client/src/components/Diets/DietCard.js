@@ -1,14 +1,50 @@
-import React from "react"
+import React, { useState } from "react"
+import styled, {css} from 'styled-components'
 
-function DietCard({diet}) {
-    const{diet_name,
+function DietCard({diet, onAddDietToProfile, onRemoveDietFromProfile}) {
+    const Button = styled.button`
+    background: transparent;
+    border-radius: 3px;
+    border: 2px solid palevioletred;
+    color: palevioletred;
+    margin: 0 1em;
+    padding: 0.25em 1em;
+
+    ${props =>
+    props.primary &&
+    css`
+      background: palevioletred;
+      color: white;
+    `};
+`
+    const {id, diet_name,
         sunday_breakfast, sunday_lunch, sunday_dinner, sunday_snacks,
         monday_breakfast, monday_lunch, monday_dinner, monday_snacks,
         tuesday_breakfast, tuesday_lunch, tuesday_dinner, tuesday_snacks,
         wednesday_breakfast, wednesday_lunch, wednesday_dinner, wednesday_snacks,
         thursday_breakfast, thursday_lunch, thursday_dinner, thursday_snacks,
         friday_breakfast, friday_lunch, friday_dinner, friday_snacks,
-        saturday_breakfast, saturday_lunch, saturday_dinner, saturday_snacks} = diet;
+        saturday_breakfast, saturday_lunch, saturday_dinner, saturday_snacks,
+        on_profile: onProfile} = diet;
+    const [onToProfile, setOnToProfile] = useState(onProfile)
+    // console.log(onProfile)
+    //handle add diet to profile
+    function handleAddDietToProfileChange() {
+        setOnToProfile((onToProfile) => !onToProfile);
+        // console.log(onToProfile)
+        fetch(`/diets/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({on_profile: !onProfile})
+        })
+        .then((r) => r.json())
+        // .then(addedToProfile => console.log(addedToProfile))
+        .then((addedToProfile) => setOnToProfile ? onAddDietToProfile(addedToProfile) : onRemoveDietFromProfile(addedToProfile))
+        //console.log(r.json)
+
+    }
 
 
 
@@ -44,6 +80,9 @@ function DietCard({diet}) {
             <p>Saturday Lunch: {saturday_lunch}</p>
             <p>Saturday Dinner: {saturday_dinner}</p>
             <p>Saturday Snacks: {saturday_snacks}</p>
+            {onToProfile ? (
+                <Button onClick={handleAddDietToProfileChange}>Remove From Profile</Button>
+            ) : ( <Button primary onClick={handleAddDietToProfileChange}>Add Diet To Profile</Button>)}
         </ul>
         </>
     )

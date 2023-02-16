@@ -2,11 +2,14 @@ import React from "react"
 
 function Header() {
 
+    console.log("hello")
+
     return (
+
         <header>
-            <h1>
+            <h2>
                 Create a Better You
-            </h1>
+            </h2>
         </header>
     )
 }

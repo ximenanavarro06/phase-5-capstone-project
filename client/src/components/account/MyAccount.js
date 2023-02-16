@@ -1,15 +1,45 @@
 import React, { useState } from "react";
 import WorkoutCard from "../Workouts/WorkoutCard"
+import DietCard from "../Diets/DietCard"
+import styled, {css} from 'styled-components'
 
 
-function MyAccount({currentUser, history, onAddWorkoutToProfile, onRemoveWorkoutFromProfile, workouts}) {
+function MyAccount({currentUser, history, onAddWorkoutToProfile, onRemoveWorkoutFromProfile, workouts, onAddDietToProfile, onRemoveDietFromProfile, diets}) {
+    const Button = styled.button`
+    background: transparent;
+    border-radius: 3px;
+    border: 2px solid palevioletred;
+    color: palevioletred;
+    margin: 0 1em;
+    padding: 0.25em 1em;
+
+    ${props =>
+    props.primary &&
+    css`
+      background: palevioletred;
+      color: white;
+    `};
+`
+const Button2 = styled.button`
+    background: transparent;
+    border-radius: 3px;
+    border: 2px solid red;
+    color: red;
+    margin: 0 1em;
+    padding: 0.25em 1em;
+
+    ${props =>
+    props.primary &&
+    css`
+      background: #ff0043;
+      color: white;
+    `};
+`
     console.log(currentUser)
     const [editUsername, setEditUsername] = useState(currentUser.username);
-    console.log(editUsername)
     const [editPassword, setEditPassword] = useState(currentUser.password);
     const [editPasswordConfirmation, setEditPasswordConfirmation] = useState(currentUser.password);
     const [editHeight, setEditHeight] = useState(currentUser.height);
-    console.log(editHeight)
     const [editWeight, setEditWeight] = useState(currentUser.weight);
     const [editWeightGoal, setEditWeightGoal] = useState(currentUser.weight_goal);
     const [editGender, setEditGender] = useState(currentUser.gender);
@@ -17,9 +47,13 @@ function MyAccount({currentUser, history, onAddWorkoutToProfile, onRemoveWorkout
     const [editHealthGoal, setEditHealthGoal] = useState(currentUser.health_goal);
     //const [errors, setErrors] = useState([])
     const onProfileWorkouts = workouts.filter((workout) => workout.on_profile);
-
     const allWorkouts = onProfileWorkouts.map((workout) => (
         <WorkoutCard key={workout.id} workout={workout} onRemoveWorkoutFromProfile={onRemoveWorkoutFromProfile} onAddWorkoutToProfile={onAddWorkoutToProfile} />
+    ))
+
+    const onProfileDiets = diets.filter((diet) => diet.on_profile);
+    const allDiets = onProfileDiets.map((diet) => (
+        <DietCard key={diet.id} diet={diet} onRemoveDietFromProfile={onRemoveDietFromProfile} onAddDietToProfile={onAddDietToProfile} />
     ))
 
     //redirect to login page
@@ -161,17 +195,15 @@ function MyAccount({currentUser, history, onAddWorkoutToProfile, onRemoveWorkout
                 onChange={(e) => setEditHealthGoal(e.target.value)}
             />
 
-            <button className="ui button" type="submit">
+            <Button className="ui button" type="submit">
                 Update Account
-            </button>
+            </Button>
             </form>
 
-            <button onClick={handleDeleteClick} redirect={redirect}>
-                <span role="img" aria-label="delete">
-                    🗑
-                </span>
-            </button>
-          <div className="workoutsOnProfile">{allWorkouts}</div>
+            <Button2 primary onClick={handleDeleteClick} redirect={redirect}>DELETE YOUR USER
+            </Button2>
+            <div className="workoutsOnProfile">{allWorkouts}</div>
+            <div className="dietsOnProfile">{allDiets}</div>
         </div>
     )
 }

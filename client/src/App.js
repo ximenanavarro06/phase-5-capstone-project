@@ -16,6 +16,7 @@ function App() {
     const history = useHistory();
     const [workouts, setWorkouts] = useState([]);
     const [diets, setDiets] = useState([]);
+    const [movements, setMovements] = useState([]);
 
 
 
@@ -41,6 +42,15 @@ function App() {
       .then((r) => r.json())
       .then(workouts => {
           setWorkouts(workouts)
+      })
+    }, [])
+
+    //fetch movements
+    useEffect(() => {
+      fetch("/movements")
+      .then((r) => r.json())
+      .then(movements => {
+          setMovements(movements)
       })
     }, [])
 
@@ -71,20 +81,49 @@ function App() {
         setWorkouts(removeWorkout)
     }
 
+    //add diet to profile
+    function handleAddDietToProfile(addDietToProfile) {
+      const dietOnProfile = diets.map((diet) => {
+        if (diet.id === addDietToProfile.id) {
+          return addDietToProfile;
+        } else {
+          return diet;
+        }
+      })
+        setDiets(dietOnProfile);
+    }
+
+    //remove diet from profile
+    function handleRemoveDietFromProfile(removeDietFromProfile) {
+      const removeDiet = diets.filter((diet) => diet.id !== removeDietFromProfile.id);
+        setDiets(removeDiet)
+    }
 
 
+    if (!currentUser) return <Login onLogin={setCurrentUser} history={history} />;
 
-    return(
+    return (
       <>
       <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser}/>
-      {!currentUser ? <Login onLogin={setCurrentUser} history={history} /> :
+
+
       <Switch>
           <Route path="/me">
-            <MyAccount currentUser={currentUser} onCurrentUserDelete={handleDeleteCurrentUser} history={history} onAddWorkoutToProfile={handleAddWorkoutToProfile} onRemoveWorkoutFromProfile={handleRemoveWorkoutFromProfile} workouts={workouts}/>
+            <MyAccount
+            currentUser={currentUser}
+            onCurrentUserDelete={handleDeleteCurrentUser}
+            history={history}
+            onAddWorkoutToProfile={handleAddWorkoutToProfile}
+            onRemoveWorkoutFromProfile={handleRemoveWorkoutFromProfile}
+            workouts={workouts}
+            diets={diets}
+            onAddDietToProfile={handleAddDietToProfile}
+            onRemoveDietFromProfile={handleRemoveDietFromProfile}
+            />
           </Route>
 
           <Route path="/workouts">
-            <WorkoutList currentUser={currentUser} workouts={workouts} onAddWorkoutToProfile={handleAddWorkoutToProfile} onRemoveWorkoutFromProfile={handleRemoveWorkoutFromProfile}/>
+            <WorkoutList currentUser={currentUser} workouts={workouts} onAddWorkoutToProfile={handleAddWorkoutToProfile} onRemoveWorkoutFromProfile={handleRemoveWorkoutFromProfile} movements={movements}/>
           </Route>
 
           <Route path="/movement_how_tos/:id">
@@ -92,18 +131,19 @@ function App() {
           </Route>
 
           <Route path="/diets">
-            <DietList currentUser={currentUser} diets={diets}/>
+            <DietList
+            currentUser={currentUser}
+            diets={diets}
+            onAddDietToProfile={handleAddDietToProfile}
+            onRemoveDietFromProfile={handleRemoveDietFromProfile}
+            />
           </Route>
 
           <Route path="/">
             {console.log(currentUser)}
             <Login onLogin={setCurrentUser}  history={history}/>
           </Route>
-
-
-
-
-          </Switch>}
+      </Switch>
       </>
 
     )

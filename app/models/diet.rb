@@ -1,2 +1,3 @@
 class Diet < ApplicationRecord
+   
 end

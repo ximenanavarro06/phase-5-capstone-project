@@ -30,6 +30,7 @@ class CreateDiets < ActiveRecord::Migration[7.0]
       t.string :saturday_lunch
       t.string :saturday_dinner
       t.string :saturday_snacks
+      t.boolean :on_profile
 
       t.timestamps
     end
