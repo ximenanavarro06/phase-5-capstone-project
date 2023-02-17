@@ -11,7 +11,7 @@ import MovementHowToCard from "./components/WorkoutHowTos/MovementHowToCard";
 
 
 
-function App() {
+function App({element}) {
     const [currentUser, setCurrentUser] = useState(null);
     const history = useHistory();
     const [workouts, setWorkouts] = useState([]);
@@ -104,9 +104,8 @@ function App() {
 
     return (
       <>
+
       <NavBar currentUser={currentUser} setCurrentUser={setCurrentUser}/>
-
-
       <Switch>
           <Route path="/me">
             <MyAccount

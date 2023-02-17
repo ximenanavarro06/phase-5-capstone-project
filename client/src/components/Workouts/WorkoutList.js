@@ -35,7 +35,7 @@ function WorkoutList({workouts, movements, onAddWorkoutToProfile, onRemoveWorkou
     //     }
     //     console.log(array)
     //     return array;
-        
+
     // }
 
     // class RecommendedWorkouts extends React.Component {

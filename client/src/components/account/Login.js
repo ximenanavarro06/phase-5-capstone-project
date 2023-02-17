@@ -2,8 +2,9 @@ import React, { useState } from "react"
 import styled from "styled-components";
 import SignUpForm from "./SignUpForm";
 import LoginForm from "./LoginForm";
-import {useHistory} from "react-router-dom"
-import {CardButton} from "../../styles/Card"
+import {useHistory} from "react-router-dom";
+import {CardButton} from "../../styles/Card";
+import Header from "../../Header";
 
 
 function Login({onLogin, history}) {
@@ -15,6 +16,7 @@ function Login({onLogin, history}) {
 
     return (
         <Wrapper>
+            <Header/>
             <Logo className="Header">Workout or Die</Logo>
             {showLogin ? (
                 <>

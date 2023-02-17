@@ -50,32 +50,38 @@ function DietCard({diet, onAddDietToProfile, onRemoveDietFromProfile}) {
 
     return (
         <>
-        <ul>
+        <div className="card" style={{display: "flex", flexDirection: "column", flexWrap: "wrap", justifyContent: "center", alignItems: "center", textAlign: "center", width: "40vw", height: "65vh", border: "10px solid", borderColor: "pink",margin: "50px", backgroundColor: "pink", borderRadius: "180px", fontSize:"9px"}}>
             <p><b>Diet: </b> {diet_name}</p>
             <p>Sunday Breakfast: {sunday_breakfast}</p>
             <p>Sunday Lunch: {sunday_lunch}</p>
             <p>Sunday Dinner: {sunday_dinner}</p>
             <p>Sunday Snacks: {sunday_snacks}</p>
+            <p>-----</p>
             <p>Monday Breakfast: {monday_breakfast}</p>
             <p>Monday Lunch: {monday_lunch}</p>
             <p>Monday Dinner: {monday_dinner}</p>
             <p>Monday Snacks: {monday_snacks}</p>
+            <p>-----</p>
             <p>Tuesday Breakfast: {tuesday_breakfast}</p>
             <p>Tuesday Lunch: {tuesday_lunch}</p>
             <p>Tuesday Dinner: {tuesday_dinner}</p>
             <p>Tuesday Snacks: {tuesday_snacks}</p>
+            <p>-----</p>
             <p>Wednesday Breakfast: {wednesday_breakfast}</p>
             <p>Wednesday Lunch: {wednesday_lunch}</p>
             <p>Wednesday Dinner: {wednesday_dinner}</p>
             <p>Wednesday Snacks: {wednesday_snacks}</p>
+            <p>-----</p>
             <p>Thursday Breakfast: {thursday_breakfast}</p>
             <p>Thursday Lunch: {thursday_lunch}</p>
             <p>Thursday Dinner: {thursday_dinner}</p>
             <p>Thursday Snacks: {thursday_snacks}</p>
+            <p>-----</p>
             <p>Friday Breakfast: {friday_breakfast}</p>
             <p>Friday Lunch: {friday_lunch}</p>
             <p>Friday Dinner: {friday_dinner}</p>
             <p>Friday Snacks: {friday_snacks}</p>
+            <p>-----</p>
             <p>Saturday Breakfast: {saturday_breakfast}</p>
             <p>Saturday Lunch: {saturday_lunch}</p>
             <p>Saturday Dinner: {saturday_dinner}</p>
@@ -83,7 +89,7 @@ function DietCard({diet, onAddDietToProfile, onRemoveDietFromProfile}) {
             {onToProfile ? (
                 <Button onClick={handleAddDietToProfileChange}>Remove From Profile</Button>
             ) : ( <Button primary onClick={handleAddDietToProfileChange}>Add Diet To Profile</Button>)}
-        </ul>
+        </div>
         </>
     )
 }

@@ -7,12 +7,12 @@ function WorkoutCard({workout, onAddWorkoutToProfile, onRemoveWorkoutFromProfile
     display: inline-block;
     background: transparent;
     border-radius: 3px;
-    border: 2px solid palevioletred;
+    border: 3px solid palevioletred;
     color: palevioletred;
     margin: 0 1em;
     padding: 0.25em 1em;
     text-decoration: none;
-    
+
 
     ${props =>
     props.primary &&
@@ -36,7 +36,9 @@ const Wrapper = styled.div`
     const {id, name, on_profile: onProfile} = workout
     const [onToProfile, setOnToProfile] = useState(onProfile)
     const movementList = workout.movements.map((movement)=> (
-        <div>
+        <div style={{display: "flex", flexDirection: "row", justifyContent: "center"}}>
+            {/* <div className="card" style={{display: "box", flexDirection: "column", flexWrap: "wrap", justifyContent: "center", alignItems: "center", textAlign: "center", width: "20vw", height: "20vh", border: "10px solid", borderColor: "violet",margin: "1px", backgroundColor: "pink"}}> */}
+            <div className="card" style={{display: "box", textAlign: "center", width: "13vw", height: "20vh", border: "10px solid", borderColor: "pink",margin: "1px", backgroundColor: "pink", borderRadius:"700px"}}>
             <p>{movement.name}</p>
             <p>Sets: {movement.sets}</p>
             <p>Reps: {movement.reps}</p>
@@ -45,7 +47,7 @@ const Wrapper = styled.div`
             How To
             </Button>
             </Wrapper>
-            <p>-------</p>
+            </div>
         </div>
     ))
 
@@ -70,14 +72,12 @@ const Wrapper = styled.div`
 
     return(
         <>
-        <div>
-            <p>{name}</p>
-            <ul>
+        <div className="card" style={{display: "flex", flexDirection: "column", flexWrap: "wrap", justifyContent: "center", alignItems: "center", textAlign: "center", width: "40vw", height: "65vh", border: "10px solid", borderColor: "pink",margin: "50px", backgroundColor: "pink", borderRadius: "360px"}}>
+            <h2 style={{fontSize: "19px"}}>{name}</h2>
                 {movementList}
-            </ul>
             {onToProfile ? (
-                <Wrapper><Button onClick={handleAddWorkoutToProfileChange}>Remove From Profile</Button></Wrapper>
-            ) : ( <Wrapper><Button primary onClick={handleAddWorkoutToProfileChange}>Add Workout To Profile</Button></Wrapper>)}
+                <Wrapper><Button onClick={handleAddWorkoutToProfileChange} style={{borderRadius:"15px", marginRight:"60px"}}>Remove From Profile</Button></Wrapper>
+            ) : ( <Wrapper><Button primary onClick={handleAddWorkoutToProfileChange} style={{borderRadius:"15px", marginRight:"60px"}}>Add Workout To Profile</Button></Wrapper>)}
         </div>
         </>
     )

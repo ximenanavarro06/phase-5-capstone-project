@@ -7,9 +7,7 @@ function Header() {
     return (
 
         <header>
-            <h2>
-                Create a Better You
-            </h2>
+            
         </header>
     )
 }
